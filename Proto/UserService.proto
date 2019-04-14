@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package UserService;
+
+// Service that handles the users
+service UserService{
+	// for now the only usage its registration
+	rpc RegisterUser(CitizenRegister) returns (CitizenReply) {}
+}
+
+message CitizenReply {
+	string UserUIID = 1;
+}
+
+message CitizenRegister {
+   string IDNumber = 1;
+   string NIF = 2;
+   string Name = 3;
+   string Address = 4;
+   string NIB = 5;
+}

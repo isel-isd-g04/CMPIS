@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package ValidationService;
+
+// The greeting service definition.
+service ValidationService {
+
+  // Used to validate a bunch of users
+  rpc ValidationStreaming(stream ValidationRequest) returns (stream ValidationReply) {}
+
+  // Used only to validate one user
+  rpc ValidationSingle(ValidationRequest) returns (ValidationReply) {}
+}
+
+message ValidationRequest {
+	 string CodeCSMP = 1;
+	 string UserFiscalNumber = 2;
+	 int64  DateTime = 3;
+	 string PositionGPS = 4;
+	 string CodeCMIO = 5;
+	 string ValidatorID = 6;
+	 string Price = 7;
+}
+
+message ValidationReply{
+	 string CodeCSMP = 1;
+	 string UserFiscalNumber = 2;
+	 int64  DateTime = 3;
+	 string PositionGPS = 4;
+	 string CMIONIF = 5;		
+	 string TransferredValue = 6;
+}
+
