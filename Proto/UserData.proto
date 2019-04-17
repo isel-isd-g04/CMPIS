@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package ValidationService;
+
+
+//User registration is only available for the CMPIS
+
+// The greeting service definition.
+service Registration {
+
+  // Used only to register one user
+  rpc RegisterUSer(CitizenRequest) returns (CitizenReply) {}
+}
+
+message CitizenRequest {
+   string IDNumber = 1;
+   string NIF = 2;
+   string Name = 3;
+   string Address = 4;
+   string NIB = 5;
+}
+
+message CitizenReply {
+   string uid = 1;
+}
+

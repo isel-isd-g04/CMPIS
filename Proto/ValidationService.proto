@@ -1,6 +1,10 @@
 syntax = "proto3";
 
+
 package ValidationService;
+
+import "ValidationModels.proto";
+//import "D:\\projects\\ISD\\Proto\\ValidationModels.proto";
 
 // The greeting service definition.
 service ValidationService {
@@ -11,23 +15,3 @@ service ValidationService {
   // Used only to validate one user
   rpc ValidationSingle(ValidationRequest) returns (ValidationReply) {}
 }
-
-message ValidationRequest {
-	 string CodeCSMP = 1;
-	 string UserFiscalNumber = 2;
-	 int64  DateTime = 3;
-	 string PositionGPS = 4;
-	 string CodeCMIO = 5;
-	 string ValidatorID = 6;
-	 string Price = 7;
-}
-
-message ValidationReply{
-	 string CodeCSMP = 1;
-	 string UserFiscalNumber = 2;
-	 int64  DateTime = 3;
-	 string PositionGPS = 4;
-	 string CMIONIF = 5;		
-	 string TransferredValue = 6;
-}
-
