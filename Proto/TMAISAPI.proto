@@ -2,15 +2,27 @@ syntax = "proto3";
 
 package TmaisAPi;
 
+//import "github.com/gogo/protobuf/gogoproto/gogo.proto"; 
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+//import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+// option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+//   info: {
+//     version: "2.0";
+//   };
+//   schemes: [HTTP,HTTPS];
+// };
+
 
 message EchoMessage {
     string value = 1;
 }
    
 
-service EchoService {
-    rpc Echo(EchoMessage) returns (EchoMessage) {}
-}
+//service EchoService {
+//   rpc Echo(EchoMessage) returns (EchoMessage) {}
+//}
   
 
 
