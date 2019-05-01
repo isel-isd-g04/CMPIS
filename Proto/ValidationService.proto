@@ -4,14 +4,14 @@ syntax = "proto3";
 package ValidationService;
 
 import "ValidationModels.proto";
-//import "D:\\projects\\ISD\\Proto\\ValidationModels.proto";
+
 
 // The greeting service definition.
 service ValidationService {
 
   // Used to validate a bunch of users
-  rpc ValidationStreaming(stream ValidationRequest) returns (stream ValidationReply) {}
+  rpc ValidationStreaming(stream ValidationModels.ValidationRequest) returns (stream ValidationModels.ValidationReply) {}
 
   // Used only to validate one user
-  rpc ValidationSingle(ValidationRequest) returns (ValidationReply) {}
+  rpc ValidationSingle(ValidationModels.ValidationRequest) returns (ValidationModels.ValidationReply) {}
 }
