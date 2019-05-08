@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,8 +8,8 @@
 
   
 <ItemGroup>
-  <Protobuf Include="..\Proto\ValidationModels.proto" Generator="MSBuild:Compile" />
-  <Protobuf Include="..\Proto\ValidationService.proto" GrpcServices="Server" Generator="MSBuild:Compile" />
+  <Protobuf Include="..\..\Proto\ValidationModels.proto" Generator="MSBuild:Compile" />
+  <Protobuf Include="..\..\Proto\ValidationService.proto" GrpcServices="Server" Generator="MSBuild:Compile" />
   <Content Include="@(Protobuf)" />
   <None Remove="@(Protobuf)" />
 </ItemGroup>

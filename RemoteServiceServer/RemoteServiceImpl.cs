@@ -19,11 +19,7 @@ namespace RemoteServiceServer
 
             Console.WriteLine("{0}", request.CodeCSMP);
 
-            //context.WriteResponseHeadersAsync()
             
-            //not implemented
-            //context.Status = Status.DefaultSuccess;
-
             return base.ValidationSingle(request, context);
         }
 
