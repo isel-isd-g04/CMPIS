@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace TmaisRemoteApi
@@ -6,6 +8,9 @@ namespace TmaisRemoteApi
     public class Persistance
     {
         private static Persistance _instance;
+
+        private ConcurrentDictionary<string, User> dataUserDic;
+
 
         public static Persistance Instance
         {
@@ -24,28 +29,45 @@ namespace TmaisRemoteApi
 
         private Persistance()
         {
+            dataUserDic = new ConcurrentDictionary<string, User>();
 
         }
 
 
-        public void AddUserTransaction(string nif, float value)
+        public void AddUserTransaction(User userAction)
+        {
+            var res = dataUserDic.GetOrAdd(userAction.IBAN, userAction);
+            //user added
+            if (res == null)
+                return;
+            
+            //increment the value
+            userAction.Value += res.Value;
+            //dataUserDic.AddOrUpdate(userAction.IBAN, userAction);
+            bool result = dataUserDic.TryUpdate(userAction.IBAN, userAction, res);
+        }
+
+
+        public void AddCMOITransaction(CmoiData cmoiAction)
         {
 
         }
 
-
-        public void AddCMOITransaction(string nif, float value)
+        public List<User> GetUserTransaction()
         {
+            var filledList = new List<User>();
+            if (dataUserDic.IsEmpty == true)
+                return filledList;
 
+            foreach (var user in dataUserDic)
+            {
+                filledList.Add(user.Value);
+            }
+
+            return filledList;
         }
 
-        public List<string> GetUserTransaction()
-        {
-
-            return null;
-        }
-
-        public List<string> GetCMOITransaction()
+        public List<CmoiData> GetCMOITransaction()
         {
 
             return null;

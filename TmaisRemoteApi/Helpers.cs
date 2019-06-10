@@ -1,4 +1,6 @@
-﻿namespace TmaisRemoteApi
+﻿using System.Configuration;
+
+namespace TmaisRemoteApi
 {
 
 
@@ -6,12 +8,15 @@
     {
 
         public static string  MsgConnection;
+        public static string TMAISTopicUser ;//= "cmpis.tmais.*";
+
+        public static string TMAISTopicCMOI;// = "cmpis.tmais.*";
 
         public static void ReadConfigs()
         {
-            MsgConnection = ConfigurationManager.AppSettings["msg-ip"];
-            //UserIBAN = ConfigurationManager.AppSettings["user-iban"];
-            //RemoteAPI = ConfigurationManager.AppSettings["remote-api"];
+            MsgConnection = ConfigurationManager.AppSettings["message-ip"];
+            TMAISTopicUser = ConfigurationManager.AppSettings["tmais-user"];
+            TMAISTopicCMOI = ConfigurationManager.AppSettings["tmais-cmoi"];
 
         }
     }

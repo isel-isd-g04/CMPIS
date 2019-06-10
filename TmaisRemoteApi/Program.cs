@@ -15,8 +15,10 @@ namespace TmaisRemoteApi
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            Helpers.ReadConfigs();
             MessagingSub messageConsumer = new MessagingSub("tmais");
+
+            CreateWebHostBuilder(args).Build().Run();
 
         }
 

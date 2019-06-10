@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TmaisRemoteApi.Controllers
@@ -25,14 +26,16 @@ namespace TmaisRemoteApi.Controllers
             {
                 Response.StatusCode = 200;
                 var result = Persistance.Instance.GetUserTransaction();
-                return "do tipo user";
+                var json = JsonConvert.SerializeObject(result);
+                return json;
 
             } else if (opType == "cmoi")
             {
                 Response.StatusCode = 200;
                 var result = Persistance.Instance.GetUserTransaction();
 
-                return "CMOIS type";
+                var json = JsonConvert.SerializeObject(result);
+                return json;
             }
 
             Response.StatusCode = 400;
