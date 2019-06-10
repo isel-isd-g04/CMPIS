@@ -9,33 +9,49 @@ namespace RemoteServiceServer
 
         private IConnection rabbitConnection;
         private IModel rabbitChannel;
-        private string pubTopic;
 
 
-        public MessagingPub(string topic)
+        public MessagingPub(string remoteIP)
         {
 
-            var factory = new ConnectionFactory() { HostName = "localhost"};
+            var factory = new ConnectionFactory() { HostName = remoteIP};
             rabbitConnection = factory.CreateConnection();
-            pubTopic = topic;
 
             rabbitChannel = rabbitConnection.CreateModel();
-            rabbitChannel.QueueDeclare(queue: pubTopic, durable: false, exclusive: false, autoDelete: false,  arguments: null);
+            rabbitChannel.QueueDeclare(queue: Helpers.TMAISTopicUser, durable: false, exclusive: false, autoDelete: false,  arguments: null);
+            rabbitChannel.QueueDeclare(queue: Helpers.TMAISTopicCMOI, durable: false, exclusive: false, autoDelete: false, arguments: null);
         }
         
 
-        public void PushMessage(string message)
+        public void PushMessageUserData(string iban, string nif, bool result,float valor)
         {
+            string message = String.Format("{0}|{1}|{2}|{3}", iban, nif, result.ToString(), valor.ToString("F"));
+
             var body = Encoding.UTF8.GetBytes(message);
 
             rabbitChannel.BasicPublish(exchange: "",
-                routingKey: pubTopic,
+                routingKey: Helpers.TMAISTopicUser,
                 basicProperties: null,
                 body: body);
 
-            Console.WriteLine("[x] Sent {0}", message);
+            Console.WriteLine("[User] Sent {0}", message);
         }
-        
+
+
+
+        public void PushMessageTransfer(string iban, string nif, float valor)
+        {
+            string message = String.Format("{0}|{1}|{2}", iban, nif, valor.ToString("F"));            
+            var body = Encoding.UTF8.GetBytes(message);
+
+            rabbitChannel.BasicPublish(exchange: "",
+                routingKey: Helpers.TMAISTopicCMOI,
+                basicProperties: null,
+                body: body);
+
+            Console.WriteLine("[CMOI] Sent {0}", message);
+        }
+
 
         public void Dispose()
         {

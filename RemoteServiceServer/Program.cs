@@ -8,17 +8,16 @@ namespace RemoteServiceServer
         static void Main(string[] args)
         {
             Console.WriteLine("CMPIS listener service is starting!");
-
-            int port = 5000;
+            Helpers.ReadConfigs();
             Server server = new Server{
                 Services =
                 {
                     ValidationService.ValidationService.BindService(new ValidationServiceImpl())
                 },
-                Ports = {new ServerPort("localhost", port, ServerCredentials.Insecure)}
+                Ports = {new ServerPort("localhost", Helpers.GrpcPort, ServerCredentials.Insecure)}
             };
             server.Start();
-            Console.WriteLine("Grpc Server started");
+            Console.WriteLine("Grpc Server started at port:{0}",Helpers.GrpcPort);
             Console.Read();
 
         }

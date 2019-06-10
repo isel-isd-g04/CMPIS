@@ -15,7 +15,7 @@ namespace RemoteServiceServer
         {
             try
             {
-                tmaisNotifier = new MessagingPub(Helpers.TMAISTopic);
+                tmaisNotifier = new MessagingPub( Helpers.MessageIP);
             }
             catch (Exception e)
             {
@@ -50,10 +50,9 @@ namespace RemoteServiceServer
 
             reply.Authorised = Payment.Instance.Debit(requestInfo.UserFiscalNumber, requestInfo.Price);
 
-            string message = String.Format("{0}|{1}|{2}", requestInfo.UserFiscalNumber, requestInfo.Price, requestInfo.CodeCSMP);
 
-            tmaisNotifier?.PushMessage(message);
-            
+            tmaisNotifier?.PushMessageUserData(requestInfo.UserIBAN, requestInfo.UserFiscalNumber, reply.Authorised, requestInfo.Price);
+            tmaisNotifier?.PushMessageTransfer(requestInfo.CMOINIB, requestInfo.CMOINIF , requestInfo.Price);
 
             return reply;
         }
