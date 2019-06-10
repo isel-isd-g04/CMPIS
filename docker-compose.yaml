@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  messaging-service:
+    image: rabbitmq:3
+
+    ports:
+      - 5001:80
+
+  tmais-service-api:
+    build:  
+
+    ports:
+      - 8080:80    
+
+
+  cmpis-service-grpc:
+    
+    build:
+
+    ports:
+      - 9090:80
+      
