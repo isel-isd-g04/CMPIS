@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Grpc.Core;
 
 namespace RemoteServiceServer
@@ -14,11 +15,15 @@ namespace RemoteServiceServer
                 {
                     ValidationService.ValidationService.BindService(new ValidationServiceImpl())
                 },
-                Ports = {new ServerPort("localhost", Helpers.GrpcPort, ServerCredentials.Insecure)}
+                Ports = {new ServerPort("0.0.0.0", Helpers.GrpcPort, ServerCredentials.Insecure)}
             };
             server.Start();
             Console.WriteLine("Grpc Server started at port:{0}",Helpers.GrpcPort);
-            Console.Read();
+            while (true)
+            {
+                Thread.Sleep(5000);
+            }
+            //Console.Read();
 
         }
     }
